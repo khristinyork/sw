@@ -54,18 +54,18 @@ Installation
 
 Installation of the OpenSSH client and server applications is simple. To install the OpenSSH client applications on your Ubuntu system, use this command at a terminal prompt:
 
-sudo apt install openssh-client
+# sudo apt install openssh-client
 
 To install the OpenSSH server application, and related support files, use this command at a terminal prompt:
 
-sudo apt install openssh-server
+# sudo apt install openssh-server
 
 The openssh-server package can also be selected to install during the Server Edition installation process.
 Configuration
 
 You may configure the default behaviour of the OpenSSH server application, sshd, by editing the file /etc/ssh/sshd_config. For information about the configuration directives used in this file, you may view the appropriate manual page with the following command, issued at a terminal prompt:
 
-man sshd_config
+# man sshd_config
 
 There are many directives in the sshd configuration file controlling such things as communication settings, and authentication modes. The following are examples of configuration directives that can be changed by editing the /etc/ssh/sshd_config file.
 
@@ -73,8 +73,8 @@ Prior to editing the configuration file, you should make a copy of the original 
 
 Copy the /etc/ssh/sshd_config file and protect it from writing with the following commands, issued at a terminal prompt:
 
-sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.original
-sudo chmod a-w /etc/ssh/sshd_config.original
+# sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.original
+# sudo chmod a-w /etc/ssh/sshd_config.original
 
 The following are examples of configuration directives you may change:
 
@@ -96,7 +96,7 @@ The following are examples of configuration directives you may change:
 
 After making changes to the /etc/ssh/sshd_config file, save the file, and restart the sshd server application to effect the changes using the following command at a terminal prompt:
 
-sudo systemctl restart sshd.service
+# sudo systemctl restart sshd.service
 
 Many other configuration directives for sshd are available to change the server application's behavior to fit your needs. Be advised, however, if your only method of access to a server is ssh, and you make a mistake in configuring sshd via the /etc/ssh/sshd_config file, you may find you are locked out of the server upon restarting it. Additionally, if an incorrect configuration directive is supplied, the sshd server may refuse to start, so be extra careful when editing this file on a remote server.
 SSH Keys
@@ -105,17 +105,17 @@ SSH keys allow authentication between two hosts without the need of a password. 
 
 To generate the keys, from a terminal prompt enter:
 
-ssh-keygen -t rsa
+# ssh-keygen -t rsa
 
 This will generate the keys using the RSA Algorithm. During the process you will be prompted for a password. Simply hit Enter when prompted to create the key.
 
 By default the public key is saved in the file ~/.ssh/id_rsa.pub, while ~/.ssh/id_rsa is the private key. Now copy the id_rsa.pub file to the remote host and append it to ~/.ssh/authorized_keys by entering:
 
-ssh-copy-id username@remotehost
+# ssh-copy-id username@remotehost
 
 Finally, double check the permissions on the authorized_keys file, only the authenticated user should have read and write permissions. If the permissions are not correct change them by:
 
-chmod 600 .ssh/authorized_keys
+# chmod 600 .ssh/authorized_keys
 
 You should now be able to SSH to the host without being prompted for a password.
 
