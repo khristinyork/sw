@@ -5,11 +5,11 @@ https://www.sublimetext.com/3
 
 
 To install the server and client type:
-### yum -y install openssh-server openssh-clients
+### _> yum -y install openssh-server openssh-clients
 
 Start the service:
-### chkconfig sshd on
-### service sshd start
+### _> chkconfig sshd on
+### _> service sshd start
 
 Make sure port 22 is opened:
 ### netstat -tulpn | grep :22
@@ -32,7 +32,7 @@ Save and close the file. Restart iptables:
 OpenSSH Server Configuration
 
 Edit /etc/ssh/sshd_config, enter:
-### vi /etc/ssh/sshd_config
+### _> vi /etc/ssh/sshd_config
 
 To disable root logins, edit or add as follows:
 PermitRootLogin no
@@ -44,7 +44,7 @@ Change ssh port i.e. run it on a non-standard port like 1235
 Port 1235
 
 Save and close the file. Restart sshd:
-### service sshd restart
+### _>service sshd restart
 
 ### Header 3
 
@@ -54,11 +54,11 @@ Installation
 
 Installation of the OpenSSH client and server applications is simple. To install the OpenSSH client applications on your Ubuntu system, use this command at a terminal prompt:
 
-## sudo apt install openssh-client
+## _> sudo apt install openssh-client
 
 To install the OpenSSH server application, and related support files, use this command at a terminal prompt:
 
-## sudo apt install openssh-server
+## _> sudo apt install openssh-server
 
 The openssh-server package can also be selected to install during the Server Edition installation process.
 Configuration
@@ -73,8 +73,8 @@ Prior to editing the configuration file, you should make a copy of the original 
 
 Copy the /etc/ssh/sshd_config file and protect it from writing with the following commands, issued at a terminal prompt:
 
-## sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.original
-## sudo chmod a-w /etc/ssh/sshd_config.original
+## _> sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.original
+## _> sudo chmod a-w /etc/ssh/sshd_config.original
 
 The following are examples of configuration directives you may change:
 
@@ -105,17 +105,25 @@ SSH keys allow authentication between two hosts without the need of a password. 
 
 To generate the keys, from a terminal prompt enter:
 
-## ssh-keygen -t rsa
+## _> ssh-keygen -t rsa
 
 This will generate the keys using the RSA Algorithm. During the process you will be prompted for a password. Simply hit Enter when prompted to create the key.
 
 By default the public key is saved in the file ~/.ssh/id_rsa.pub, while ~/.ssh/id_rsa is the private key. Now copy the id_rsa.pub file to the remote host and append it to ~/.ssh/authorized_keys by entering:
 
-## ssh-copy-id username@remotehost
+##_> ssh-copy-id username@remotehost
 
 Finally, double check the permissions on the authorized_keys file, only the authenticated user should have read and write permissions. If the permissions are not correct change them by:
 
-## chmod 600 .ssh/authorized_keys
+##_> chmod 600 .ssh/authorized_keys
 
 You should now be able to SSH to the host without being prompted for a password.
+
+
+## _> ssh-keyscan -t rsa ip_address
+## _> ssh-keygen -R SERVERIPADDRESS
+# _> ssh-keygen -f "known_hosts" -R root@localhost
+
+```added the rsa key to known_hosts file in my local machine, but still I am getting this issue
+
 
