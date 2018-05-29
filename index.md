@@ -1,6 +1,69 @@
 # Software
 ## sublime
 https://www.sublimetext.com/3
+## X11
+
+Entorno X11 (ssh + export DISPLAY)
+Introducción
+
+Si deseamos ejecutar programas gráficos que utilicen el entorno gráfico X11 (XFree86) sin tener que instalar el programa en local es posible hacerlo mediante el ssh.
+
+Los programas podran residir tanto en otros equipos Mac OS X como en cualquier UNIX o Linux que soporte este entorno.
+
+Para que funcione lo aquí expuesto hay que asegurarse que está instalado el X11.
+Configuración Cliente
+
+Para el X11 el cliente es la máquina remota a la que me conectaré.
+
+Aquí se comenta el proceso a seguir en un Mac OS X, pero en cualquier otro sistema (UNIX, Linux) puede diferir.
+Configuración del ssh
+
+El cliente deberá tener configurado el X11Forwarding para lo cual, habrá que revisar y, si procede, modificar dos ficheros /etc/ssh_config y /etc/sshd_config.
+ssh_config
+
+Debe modificarse la línea de código
+
+    #ForwardX11 no
+
+por
+
+    ForwardX11 yes
+
+sshd_config
+
+Debe modificarse la línea de código
+
+    #X11Forwarding no
+
+por
+
+    X11Forwarding yes
+
+Redireccionar DISPLAY
+
+Además habrá que decirle dónde debe redireccionar la salida de pantalla y eso lo haremos con el comando:
+
+    export DISPLAY=localhost:10.0
+
+Arrancar el servicio
+
+Para arrancar el servicio únicamente deberemos dirigirnos a Preferencias del Sistema / Compartir y activar Sesión remota.
+Servidor
+
+Para el X11 el servidor es la máquina donde estoy trabajando.
+Conectarse
+
+Para conectarse al cliente se debe ejecutar el programa X11 (/Aplicaciones/Utilidades/) e introducir el comando:
+
+    ssh -X usuario@maquinacliente
+
+A continuación nos pedirá la contraseña y, tras introducirla, nos permitirá trabajar como si estuviesemos en la máquina cliente.
+
+Si todo ha funcionado correctamente podremos comprobar que funciona con un programa sencillo como:
+
+    /usr/X11R6/bin/xlogo
+
+
 ## ssh en centox cloudera OpenSSH Installations under CentOS Linux
 
 
