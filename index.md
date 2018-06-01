@@ -189,4 +189,16 @@ You should now be able to SSH to the host without being prompted for a password.
 
 ```added the rsa key to known_hosts file in my local machine, but still I am getting this issue
 
+## TELNET
+Installation
+
+Open your terminal and type the following command to install telnet:
+
+yum install telnet telnet-server -y
+
+Next, edit the telnet configuration file /etc/xinetd.d/telnet;
+
+vi /etc/xinetd.d/telnet
+
+Set disable = no:
 
