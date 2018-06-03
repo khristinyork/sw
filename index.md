@@ -1,4 +1,30 @@
 # Software
+## instalar java 
+### java 7
+sudo add-apt-repository ppa:openjdk-r/ppa  
+sudo apt-get update   
+sudo apt-get install openjdk-7-jdk 
+### java 8
+sudo apt-get install openjdk-7-jdk
+### elegir entre diferentes vresiones
+
+### sudo /usr/sbin/update-alternatives --config java
+Existen 2 opciones para la alternativa java (que provee /usr/bin/java).
+
+  Selección   Ruta                                            Prioridad  Estado
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      modo automático
+  1            /usr/lib/jvm/java-7-openjdk-amd64/jre/bin/java   1071      modo manual
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      modo manual
+
+Press <enter> to keep the current choice[*], or type selection number: 1
+update-alternatives: utilizando /usr/lib/jvm/java-7-openjdk-amd64/jre/bin/java para proveer /usr/bin/java (java) en modo manual
+### java -version
+java version "1.7.0_95"
+OpenJDK Runtime Environment (IcedTea 2.6.4) (7u95-2.6.4-3)
+OpenJDK 64-Bit Server VM (build 24.95-b01, mixed mode)
+
+
 ## Solución al error de dependencias incumplidas
 Para solucionar esto, lo más practico es abrir la terminal y escribir lo siguiente
 
