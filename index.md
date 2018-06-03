@@ -1,4 +1,26 @@
 # Software
+## Solución al error de dependencias incumplidas
+Para solucionar esto, lo más practico es abrir la terminal y escribir lo siguiente
+
+### sudo apt-get autoremove
+
+### sudo apt-get autoclean
+
+### sudo apt-get update
+
+### sudo apt-get -f install
+
+Los primeros comandos hacen que el sistema limpie la memoria de paquetes e instalación, tanto efectivas como y limpia el sistema de paquetes huérfanos, es decir, de paquetes que en un tiempo tuvieron uso por alguna aplicación y ahora ya no lo usa ningún programa. El tercer comando actualiza el sistema Apt. Y el último comando resuelve las dependencias rotas que existan en el sistema.
+
+Tras esto se podrá  hacer la instalación correctamente. En este caso concreto, yo recomendaría abrir la terminal y escribir lo siguiente
+
+### sudo apt-get install lubuntu-restricted-extras
+
+Con ello se instalará una serie de programas que se clasifican como extras necesarios para los usuarios noveles. Entre ellos estaría la paquetería para tener flash en nuestro sistema. Si esto tampoco funcionase para tener flash, lo más directo y seguro es escribir en la terminal
+
+### sudo apt-get install flashplugin-installer
+
+
 ## Error el sudo apt-get update no avanza 0%
 
 You can make this persistent for all apt-get in the future (so you don't have to provide the arguments to make this work) by doing the following (also from the other U&L post):
