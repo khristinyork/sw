@@ -208,7 +208,7 @@ Try this command set, based off the information in the aforementioned link:
 apt-get -o Acquire::ForceIPv4=true update
 apt-get -o Acquire::ForceIPv4=true upgrade
 This should force IPv4 in place of IPv6.
-# Error el sudo apt-get update no avanza
+## Error el sudo apt-get update no avanza
 You can make this persistent for all apt-get in the future (so you don't have to provide the arguments to make this work) by doing the following (also from the other U&L post):
 
 echo 'Acquire::ForceIPv4 "true";' | sudo tee /etc/apt/apt.conf.d/99force-ipv4
