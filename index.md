@@ -1,5 +1,5 @@
 # Software
-## Error el sudo apt-get update no avanza
+## Error el sudo apt-get update no avanza 0%
 
 You can make this persistent for all apt-get in the future (so you don't have to provide the arguments to make this work) by doing the following (also from the other U&L post):
 
