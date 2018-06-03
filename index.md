@@ -2,8 +2,12 @@
 ## Error el sudo apt-get update no avanza 0%
 
 You can make this persistent for all apt-get in the future (so you don't have to provide the arguments to make this work) by doing the following (also from the other U&L post):
-
 echo 'Acquire::ForceIPv4 "true";' | sudo tee /etc/apt/apt.conf.d/99force-ipv4
+
+apt-get -o Acquire::ForceIPv4=true update
+apt-get -o Acquire::ForceIPv4=true upgrade
+This should force IPv4 in place of IPv6.
+
 ## sublime
 https://www.sublimetext.com/3
 ## X11
