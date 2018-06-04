@@ -21,6 +21,15 @@ su hadoop
 vim ~/.bashrc
 export PATH=$PATH:/opt/hadoop-2.6.4/bin:/opt/hadoop-2.6.4/sbin
 
+
+Se configuran las variables de entorno
+necesarias para el funcionamiento de los
+servicios de Hadoop modificando el fichero
+/opt/hadoop/etc/hadoop/hadoop- env.sh
+# el directorio de instalación del jdk
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
+export HADOOP_PREFIX=/opt/hadoop
+
 vim /opt/hadoop-2.6.4/etc/hadoop/core-site.xml
 introducir esto:
 <property>
