@@ -1,0 +1,22 @@
+https://archive.apache.org/dist/hadoop/core/hadoop-2.6.4/ hadoop-2.6.4.tar.gz 
+
+sudo apt-get install openjdk-8-jdk 
+sudo apt-get install openssh-server sudo apt-get install openssh-client 
+tar -zxf hadoop-2.6.4.tar.gz 
+mv hadoop-2.6.4 /opt/hadoop 
+
+sudo addgroup hadoop sudo 
+sudo adduser --ingroup hadoop hadoop 
+
+
+vim /etc/ssh/sshd_config  	PublicKeyAuthentication yes
+
+cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+
+sudo chown -R hadoop:hadoop /opt/hadoop/hadoop
+
+Modificar el fichero .bashrc del usuario hadoop, para
+añadir al path los directorios de binarios de Hadoop
+su hadoop
+vim ~/.bashrc
+export PATH=$PATH:/opt/hadoop-2.6.4/bin:/opt/hadoop-2.6.4/sbin
