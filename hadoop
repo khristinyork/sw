@@ -34,8 +34,22 @@ introducir esto:
 
 vim  /opt/hadoop-2.6.4/etc/hadoop/hdfs-site.xml
 
+
 introducir esto:
 <property>
 <name>dfs.replication</name>
 <value>1</value>
 </property>
+
+vim /opt/hadoop-2.6.4/etc/hadoop/yarn-site.xml
+introducir esto:
+<!-- Se activa el shuffle de mapreduce-->
+<property>
+        <name>yarn.nodemanager.aux-services</name>
+        <value>mapreduce_shuffle</value>
+</property>
+<!-- Se activa la gragacion de los -->
+<property>
+        <name>yarn.log-aggregation-enable</name>
+        <value>true</value>
+</property> 
