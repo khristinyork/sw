@@ -64,3 +64,15 @@ introducir esto:
 <name>mapreduce.framework.name</name>
 <value>yarn</value>
 </property>
+
+
+
+• Se da formato al sistema de ficheros de Hadoop
+hadoop namenode -format
+• Se arrancan los servicios del HDFS
+start-dfs.sh
+• Se arrancan los servicios de YARN
+start-yarn.sh
+• Se arranca el job-history-server
+mr-jobhistory-daemon.sh start
+historyserver
