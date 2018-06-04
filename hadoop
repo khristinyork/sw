@@ -22,8 +22,7 @@ vim ~/.bashrc
 export PATH=$PATH:/opt/hadoop-2.6.4/bin:/opt/hadoop-2.6.4/sbin
 
 vim /opt/hadoop-2.6.4/etc/hadoop/core-site.xml
-
-
+introducir esto:
 <property>
 <name>fs.default.name</name>
 <value>hdfs://localhost:9000</value>
@@ -31,4 +30,12 @@ vim /opt/hadoop-2.6.4/etc/hadoop/core-site.xml
 <property>
 <name>hadoop.tmp.dir</name>
 <value>/opt/hadoop-2.6.4/tmp</value>
+</property>
+
+vim  /opt/hadoop-2.6.4/etc/hadoop/hdfs-site.xml
+
+introducir esto:
+<property>
+<name>dfs.replication</name>
+<value>1</value>
 </property>
