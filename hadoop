@@ -32,9 +32,7 @@ STEP 3: Create a dedicated user
 A new user is not required but in a large-scale environment I strongly recommend that you create a separate user account dedicated exclusively to Hadoop. This allows you to restrict the permissions to the mimimum needed by Hadoop. This account does not need to have extra privileges such as sudo privileges. It only needs to have read and write access to some directories in order to perform Hadoop tasks.
 
 Now let’s create a dedicated user to Hadoop.
-1
-2
-	
+
 $ sudo addgroup hadoopgroup
 $ sudo adduser --ingroup hadoopgroup hadoop
 
@@ -42,15 +40,7 @@ $ sudo adduser --ingroup hadoopgroup hadoop
 STEP 4: Configuring passphraseless SSH
 
 To avoid entering passphrase every time Hadoop interacts with its nodes, let’s create an RSA keypair to manage authentication. The authorized_keys file holds public keys that are allowed to authenticate into the account the key is added to.
-1
-2
-3
-4
-5
-6
-7
-8
-9
+
 	
 $ su - hadoop
  
@@ -66,21 +56,7 @@ $ exit
 STEP 5: Downloading Hadoop
 
 To download the last stable version, go to Hadoop Releases and check the last release. Inside Hadoop Releases page go to Download a release now! link in order to find a mirror site for your download. Now, just copy the link to the hadoop-0.23.9.tar.gz file (version being used in this post). It will be used in the second command line bellow to download hadoop-0.23.9.tar.gz straight to the desired folder.
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
+
 	
 $ cd /usr/local
 $ sudo wget http://ftp.unicamp.br/pub/apache/hadoop/common/hadoop-0.23.9/hadoop-0.23.9.tar.gz
@@ -103,69 +79,40 @@ STEP 6: Setting up JAVA_HOME for Hadoop
 
 Now that you have Java installed let’s configure it for Hadoop. In previous versions of Hadoop the file conf/hadoop-env.sh come for setting environment variables. Hadoop 0.23.9 don’t have this file in it. In such a case, we will manually create it inside /etc/hadoop folder and set the JAVA_HOME variable.
 
-If you followed STEP 1, where Java is installed on your computer should be the same as mine
-1
-2
-	
+If you followed STEP 1, where Java is installed on your computer should be the same as min	
 $ echo $JAVA_HOME
 /usr/lib/jvm/jdk1.7.0_25
 
  
-Now let’s create /hadoop-env.sh file
-1
-	
+Now let’s create /hadoop-env.sh file	
 $  sudo nano /usr/local/hadoop/etc/hadoop/hadoop-env.sh
-
- 
 and add the following line
-1
 	
 export JAVA_HOME=/usr/lib/jvm/jdk1.7.0_25
 
  
-Once you have finished, save your hadoop-env.sh file pressing CTRL + X.
-
- 
+Once you have finished, save your hadoop-env.sh file pressing CTRL + X
 STEP 7: Disabling IPv6
-
-Given the fact that Apache Hadoop is not currently supported on IPv6 networks (see Hadoop and IPv6) we will disable IPv6 in Java by editing hadoop-env.sh again.
-1
-	
+Given the fact that Apache Hadoop is not currently supported on IPv6 networks (see Hadoop and IPv6) we will disable IPv6 in Java by editing hadoop-env.sh again.	
 $  sudo nano /usr/local/hadoop/etc/hadoop/hadoop-env.sh
 
  
-Add the following line at the bottom of the file
-1
-	
+Add the following line at the bottom of the file	
 HADOOP_OPTS=-Djava.net.preferIPv4Stack=true
-
- 
 I am not sure if also disable IPv6 on Ubuntu 13.04 is really necessary (It worked without this step for me in test environments) but just in case, you can do it adding the following lines at the end of sysctl.conf file.
-1
 	
-$ sudo nano /etc/sysctl.conf
-1
-2
-3
-4
-	
+$ sudo nano /etc/sysctl.conf	
 # IPv6 configuration
 net.ipv6.conf.all.disable_ipv6 = 1
 net.ipv6.conf.default.disable_ipv6 = 1
 net.ipv6.conf.lo.disable_ipv6 = 1
 
 Once you have finished adding, save sysctl.conf file pressing CTRL + X.
-
-Reload configuration for sysctl.conf
-1
-	
+Reload configuration for sysctl.conf	
 $ sudo sysctl -p
 
-Check IPv6 is disabled typing
-1
-	
+Check IPv6 is disabled typing	
 $ cat /proc/sys/net/ipv6/conf/all/disable_ipv6
-
 Response:
 0 – mean that IPv6 is enabled.
 1 – mean that IPv6 is disable. It is what we expect.
@@ -174,13 +121,7 @@ Response:
 STEP 8: Configuring HDFS
 
 The Hadoop Distributed File System (HDFS) is a reliable distributed file system designed to run on ordinary hardware and to store very large amounts of data (terabytes or even petabytes). HDFS is highly fault-tolerant because from a pratical standpoint it was built upon the premise that hardware failure is the norm rather than the exception (see HDFS Architecture Guide). Thus, failure detection, distributed replication and quick recovery are in its core architecture.
-
-The configuration settings are a set of key-value pairs of the format:
-1
-2
-3
-4
-	
+The configuration settings are a set of key-value pairs of the format:	
 <property>
   <name>property-name</name>
   <value>property-value</value>
@@ -191,36 +132,15 @@ The main configurations are stored in the 3 files bellow:
 core-site.xml – contains default values for core Hadoop properties.
 mapred-site.xml – contains configuration information for MapReduce properties.
 hdfs-site.xml – contains server side configuration of your distributed file system.
-
 First, let’s create a temporary directory for Hadoop
-1
-2
-3
-4
-5
-	
+
 $ sudo mkdir /home/hadoop/tmp
 $ sudo chown -R hadoop:hadoopgroup /home/hadoop/tmp
  
 # Set folder permissions
 $ sudo chmod 750 /home/hadoop
-
- 
-and now set core-site.xml properties
-1
-	
+and now set core-site.xml properties	
 $ sudo nano /usr/local/hadoop/etc/hadoop/core-site.xml
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
 	
 <configuration>
   <property>
@@ -235,33 +155,15 @@ $ sudo nano /usr/local/hadoop/etc/hadoop/core-site.xml
 </configuration>
 
 Once you have finished editing, save your core-site.xml file pressing CTRL + X.
-
 hadoop.tmp.dir – A base for other temporary directories.
-
 fs.defaultFS – The name of the default file system. A URI whose scheme and authority determine the FileSystem implementation. The uri’s scheme determines the config property (fs.SCHEME.impl) naming the FileSystem implementation class. The uri’s authority is used to determine the host, port, etc. for a filesystem.
-
-    If you have any questions about core-site.xml configuration options, see core-default.xml for more details.
-
- 
+If you have any questions about core-site.xml configuration options, see core-default.xml for more details.
 As we are configuring a single node, we can edit mapred-site.xml file and config it as follow:
-1
-2
-3
-4
-5
 	
 # Create a copy of the template mapred-site.xml file
 $ sudo cp /usr/local/hadoop/etc/hadoop/mapred-site.xml.template /usr/local/hadoop/etc/hadoop/mapred-site.xml
- 
 # Edit the copy we just created
-$ sudo nano /usr/local/hadoop/etc/hadoop/mapred-site.xml
-1
-2
-3
-4
-5
-6
-	
+$ sudo nano /usr/local/hadoop/etc/hadoop/mapred-site.xml	
 <configuration>
   <property>
     <name>mapreduce.jobtracker.address</name>
@@ -270,28 +172,16 @@ $ sudo nano /usr/local/hadoop/etc/hadoop/mapred-site.xml
 </configuration>
 
 mapreduce.jobtracker.address – The host and port that the MapReduce job tracker runs at. If “local”, then jobs are run in-process as a single map and reduce task.
-
-    If you have any questions about core-site.xml configuration options, see mapred-default.xml for more details.
-
- 
+If you have any questions about core-site.xml configuration options, see mapred-default.xml for more details.
 By default, Hadoop will place DFS data node blocks in file://${hadoop.tmp.dir}/dfs/data (the property you have just configured in core-site.xml). This is fine while still in development or evaluation, but you probably should override this default value in a production system.
-
 It’s a little bit of work, but you’re going to have to do it anyway. So we can just create them now
-1
-2
-3
 	
 $ sudo mkdir /home/hadoop/hdfs
-$ sudo chown -R hadoop:hadoopgroup /home/hadoop/hdfs
+$ sudo chown -R hadoop:hadoop  /home/hadoop/hdfs
 $ sudo chmod 750 /home/hadoop/hdfs
 
-Open hdfs-site.xml for editing
-1
-	
-$ sudo nano /usr/local/hadoop/etc/hadoop/hdfs-site.xml
-
-
-	
+Open hdfs-site.xml for editing	
+$ sudo nano /usr/local/hadoop/etc/hadoop/hdfs-site.xml	
 <configuration>
     <property>
       <name>dfs.replication</name>
@@ -313,38 +203,20 @@ dfs.datanode.data.dir – Determines where on the local filesystem an DFS data n
  
 STEP 9: Formating NameNode
 
-Before start adding files to the HDFS we must format it. The command bellow will do it for us.
-1
-2
-	
+Before start adding files to the HDFS we must format it. The command bellow will do it for us.	
 $ su - hadoop
 $ /usr/local/hadoop/bin/hdfs namenode -format
 
  
 STEP 10: Starting the services
 
-Now that we have formatted HDFS, use the following commands to launch hadoop
-1
-2
-3
-4
-	
+Now that we have formatted HDFS, use the following commands to launch hadoop	
 # su - hadoop 
 # if you are not already
 $ /usr/local/hadoop/sbin/start-dfs.sh
 $ /usr/local/hadoop/sbin/start-yarn.sh
-
-Given the fact that Hadoop is written in the Java programming language, we can so use the Java Process Status tool (JPS) to check which processes are currently running in the JVM.
-
-type in your command line
-1
 	
 $ jps
-
-
-
-
-
 
 
 
@@ -434,5 +306,4 @@ start-dfs.sh
 • Se arrancan los servicios de YARN
 start-yarn.sh
 • Se arranca el job-history-server
-mr-jobhistory-daemon.sh start
-historyserver
+mr-jobhistory-daemon.sh start historyserver
