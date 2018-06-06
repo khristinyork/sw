@@ -29,4 +29,26 @@ Connector    	Spark	                              Cassandra	       Cassandra_Jav
               sudo apt-get install cassandra-tools  # optional utilities
               
               Construyendo paquetes en Debian
-              dpkg-buildpackage -uc -us
+              dpkg-buildpackage -uc -us=> peta
+               
+               You can start Cassandra with sudo service cassandra start and stop it with sudo service cassandra stop. However, normally the service will start automatically. For this reason be sure to stop it if you need to make any configuration changes.
+                Verify that Cassandra is running by invoking nodetool status from the command line.
+                nodetool status=<peta
+                
+                 vim /etc/cassandra/default.conf/cassandra-env.sh
+                 JVM_OPTS="$JVM_OPTS -Xloggc:/var/log/cassandra/gc.log   -Djava.rmi.server.hostname=127.0.0.1"
+                 
+                 cristina@cristina-VirtualBox:/etc/cassandra$ nodetool status
+Datacenter: datacenter1
+=======================
+Status=Up/Down
+|/ State=Normal/Leaving/Joining/Moving
+--  Address    Load       Tokens       Owns (effective)  Host ID                               Rack
+UN  127.0.0.1  103,07 KB  256          100,0%            b4527d27-898c-4e51-a358-953bc583556d  rack1
+
+
+                The default location of configuration files is /etc/cassandra.
+                The default location of log and data directories is /var/log/cassandra/ and /var/lib/cassandra.
+                Start-up options (heap size, etc) can be configured in /etc/default/cassandra.
+               
+              
