@@ -16,7 +16,17 @@ Connector    	Spark	                              Cassandra	       Cassandra_Jav
             
             
             ## INSTALAR
-              METER EN /etc/apt/sources.list
-            
-             deb http://www.apache.org/dist/cassandra/debian 30x main
-             deb-src http://www.apache.org/dist/cassandra/debian 30x main
+              METER EN Los repositorios de cassandra /etc/apt/sources.list
+
+                    deb http://www.apache.org/dist/cassandra/debian 30x main
+                       deb-src http://www.apache.org/dist/cassandra/debian 30x main
+             Agregar claves de repositorio
+             curl https://www.apache.org/dist/cassandra/KEYS | sudo apt-key add
+             
+             Instalar Apache Cassandra
+              sudo apt-get update
+              sudo apt-get install cassandra
+              sudo apt-get install cassandra-tools  # optional utilities
+              
+              Construyendo paquetes en Debian
+              dpkg-buildpackage -uc -us
