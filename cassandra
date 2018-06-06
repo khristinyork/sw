@@ -1,6 +1,6 @@
 
 
-Connector    	Spark	                              Cassandra	   Cassandra_Java_Driver   MinimumJavaVersion	      SupportedScalaVersions
+Connector    	Spark	                              Cassandra	       Cassandra_Java_Driver            MinimumJavaVersion  SupportedScalaVersions
                                       
                                       	
 2.3	        2.3                                2.1.5*, 2.2, 3.0          3.0	                            8	                  2.11
