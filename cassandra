@@ -1,4 +1,4 @@
-
+### CASSANDRA
 
 Connector    	Spark	                              Cassandra	       Cassandra_Java_Driver            MinimumJavaVersion  SupportedScalaVersions
                                       
@@ -12,4 +12,11 @@ Connector    	Spark	                              Cassandra	       Cassandra_Jav
               
              
 1.5	        1.5 2.1.5*, 2.2,1.6	                     3.0                  3.0	                            7	                 2.10, 2.11
-              
+             
+            
+            
+            ## INSTALAR
+              METER EN /etc/apt/sources.list
+            
+             deb http://www.apache.org/dist/cassandra/debian 30x main
+             deb-src http://www.apache.org/dist/cassandra/debian 30x main
