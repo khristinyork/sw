@@ -1,5 +1,7 @@
 # Software
-## instalar java 
+## instalar java
+/usr/sbin/update-alternatives --config java
+
 ### java 7
 sudo add-apt-repository ppa:openjdk-r/ppa  
 sudo apt-get update   
