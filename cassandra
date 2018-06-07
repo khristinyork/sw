@@ -31,7 +31,10 @@ Connector    	Spark	                              Cassandra	       Cassandra_Jav
               Construyendo paquetes en Debian
               dpkg-buildpackage -uc -us=> peta
                
-               You can start Cassandra with sudo service cassandra start and stop it with sudo service cassandra stop. However, normally the service will start automatically. For this reason be sure to stop it if you need to make any configuration changes.
+               You can start Cassandra with sudo service cassandra start and stop it with sudo service
+               cassandra stop. However, normally the service will start automatically. 
+               For this reason be sure to stop it if you need to make any configuration changes.
+               
                 Verify that Cassandra is running by invoking nodetool status from the command line.
                 nodetool status=<peta
                 
@@ -50,5 +53,23 @@ UN  127.0.0.1  103,07 KB  256          100,0%            b4527d27-898c-4e51-a358
                 The default location of configuration files is /etc/cassandra.
                 The default location of log and data directories is /var/log/cassandra/ and /var/lib/cassandra.
                 Start-up options (heap size, etc) can be configured in /etc/default/cassandra.
-               
+                
+                
+                
+                CARACTERISTICAS INTERESANTES
+                *****************************
+                   Topología en anillo.
+                   Cassandra es escalable linealmente, es decir, aumenta su rendimiento a medida
+                     que aumenta el número de nodos del clúster
+                     
+                   Imita a los SGBD tradicionales, pero con triggers y transacciones ligeros
+                   Admite propiedades ACID (Atomicidad, Coherencia, Aislamiento y Durabilidad)
+                 
+                 
+                 Protocolos Gossip <  
+                    Se utiliza para descubrir la localización y la información de estado de los
+                  otros nodos que participan en el clúster de Cassandra
+                   Red de protocolos de comunicación inspirados en la propagación de rumores
+                    como en la vida real.
+                   Comunicación periódica, entre cada par de nodos
               
