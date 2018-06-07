@@ -58,14 +58,40 @@ UN  127.0.0.1  103,07 KB  256          100,0%            b4527d27-898c-4e51-a358
                 
                 CARACTERISTICAS INTERESANTES
                 *****************************
-                   Topología en anillo.
-                   Cassandra es escalable linealmente, es decir, aumenta su rendimiento a medida
+                    Topología en anillo.
+                    Cassandra es escalable linealmente, es decir, aumenta su rendimiento a medida
                      que aumenta el número de nodos del clúster
+                    Añadimos datos a las tablas, dando un valor a cada columna; aquella columna
+                     que no tiene valores, se le da el valor NULL.
                      
-                   Imita a los SGBD tradicionales, pero con triggers y transacciones ligeros
-                   Admite propiedades ACID (Atomicidad, Coherencia, Aislamiento y Durabilidad)
-                 
-                 
+                    Imita a los SGBD tradicionales, pero con triggers y transacciones ligeros
+                    Admite propiedades ACID (Atomicidad, Coherencia, Aislamiento y Durabilidad)
+                    Podemos actualizar algunos o todos los registros.
+                     Dos estructuras básicas:
+                           Column: son pares nombre/valor. {nombre, valor, timestamp}.
+                                       El valor de cada columna está formado por un array de bytes.
+                                       Son inmutables para evitar problemas de multithreading.
+                                       Se organizan dentro de las columns families.
+                                       No es necesario definir todas las columnas en el momento de diseñar la base de
+                                        datos.
+                                       Se ordenan por un tipo. Pueden ser: AsciiType, BytesType, LongType,
+                                        TimeUUIDType y UTF8Type
+                           Column Family: contenedor de registros que contienen columnas similares.
+                           [keySpace] [COLUMN_FAMILIY1
+                                                      [ROWKEY1,SUPERCOLUMN_FAMILY1[
+                                                                                   SUPERCOLUMN1{
+                                                                                                 namecolumna1:valorcolumn1
+                                                                                                 namecolumna2:valorcolumn2,
+                                                                                                 namecolumna3.valorcolumna3
+                                                                                               }
+                                                                                   SUPERCOLUMN2{
+                                                                                                 namecolumna1:valorcolumn1
+                                                                                                 namecolumna2:valorcolumn2,
+                                                                                                 namecolumna3.valorcolumna3
+                                                                                                }
+                                                                                ]
+                                                       ]
+                             En Cassandra se suele empezar diseñando las consultas
                  Protocolos Gossip <  
                     Se utiliza para descubrir la localización y la información de estado de los
                   otros nodos que participan en el clúster de Cassandra
