@@ -2,6 +2,9 @@
 Asegúrese de que se cumplan las siguientes condiciones antes de utilizar la puerta de enlace MAPR NFS:
 
 #1.-El stock del servicio NFS de Linux no se debe ejecutar. Linux NFS y MapR NFS no se pueden ejecutar simultáneamente.
+   find / -name *.log -exec grep -il filebrowser {} \;
+
+  
   /etc/sysconfig/nfs
                   NFS requiere el mapa de puertos, que asigna dinámicamente puertos para servicios RPC. 
                   Esto causa problemas para configurar reglas de firewall. 
@@ -40,15 +43,67 @@ Asegúrese de que se cumplan las siguientes condiciones antes de utilizar la pue
                   Permitir el puerto TCP especificado con LOCKD_TCPPORT="x"
 
                   Permitir el puerto UDP especificado con LOCKD_UDPPORT="x"
+                  ##############
+                  #comprobacion#
+                  ##############
+                  cat /etc/sysconfig/nfs |grep LOCK
+                  #LOCKDARG=
+                  #LOCKD_TCPPORT=32803
+                  #LOCKD_UDPPORT=32769
+
+               
+                  
 2.-El administrador de bloqueos (nlockmgr) debe estar deshabilitado.
+                   ##############
+                   #comprobacion#
+                   ##############
+                  [root@maprdemo sysconfig]# netstat |grep 32769
+                  [root@maprdemo sysconfig]# netstat |grep 32803
 3.-En Red Hat y CentOS v6.0 y superior, el rpcbind servicio debe estar ejecutándose.
-Puedes usar el comando ps ax | grep rpcbindpara verificar.
-4.-En Red Hat y CentOS v5.xy versiones anteriores, y en Ubuntu y SUSE, el portmapperservicio debe estar ejecutándose. 
-Puedes usar el comando ps ax | grep portmappara verificar.
+                 Puedes usar el comando ps ax | grep rpcbind para verificar.
+                   ##############
+                   #comprobacion#
+                   ##############
+                 [root@maprdemo sysconfig]# ps ax | grep rpcbind
+                 1140 ?        Ss     0:00 rpcbind
+                 31507 pts/0    S+     0:00 grep rpcbind
+
+4.-En Red Hat y CentOS v5.xy versiones anteriores, y en Ubuntu y SUSE, el portmappers ervicio debe estar ejecutándose. 
+Puedes usar el comando ps ax | grep portmap    para verificar.
+                   ##############
+                   #comprobacion#
+                   ##############
+               [root@maprdemo sysconfig]# ps ax | grep portmap
+                599 pts/0    S+     0:00 grep portmap
+
 5.-El mapr-nfspaquete debe estar presente e instalado. 
-Puede enumerar los contenidos en el /opt/mapr/rolesdirectorio para verificar nfsen la lista.
+
+Puede enumerar los contenidos en el /opt/mapr/roles  directorio para verificar nfs  en la lista.
+                   ##############
+                   #comprobacion#
+                   ##############
+                   [root@maprdemo sysconfig]# ls -l /opt/mapr/roles
+                    total 0
+                    -rw-r--r-- 1 root root 0 Apr  4  2017 cldb
+                    -rw-r--r-- 1 root root 0 Apr  4  2017 fileserver
+                    -rw-r--r-- 1 root root 0 Apr  3  2017 hbasethrift
+                    -rw-r--r-- 1 root root 0 Apr  3  2017 hbinternal
+                    -rw-r--r-- 1 root root 0 Apr  4  2017 historyserver
+                    -rw-r--r-- 1 root root 0 Mar 24  2017 hivemetastore
+                    -rw-r--r-- 1 root root 0 Mar 24  2017 hiveserver2
+                    -rw-r--r-- 1 root root 0 Mar 27  2017 hue
+         =>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>           -rw-r--r-- 1 root root 0 Apr  4  2017 nfs  
+                    -rw-r--r-- 1 root root 0 Apr  4  2017 nodemanager
+                    -rw-r--r-- 1 root root 0 Mar 27  2017 oozie
+                    -rw-r--r-- 1 root root 0 Apr  4  2017 resourcemanager
+                    -rw-r--r-- 1 root root 0 Mar 27  2017 spark-historyserver
+                    -rw-r--r-- 1 root root 0 Apr  4  2017 webserver
+                    -rw-r--r-- 1 root root 0 Apr  4  2017 zookeeper
+
 6.-Asegúrese de haber aplicado una licencia Community Edition (M3) o una licencia Enterprise Edition (M5) (paga o de prueba) al clúster. 
 Ver Agregar una licencia .
-7.-Asegúrese de que el servicio MapR NFS esté iniciado. Consulte Gestión de funciones y servicios .
+7.-Asegúrese de que el servicio MapR NFS esté iniciado. 
+Consulte Gestión de funciones y servicios .
+
 8.-Verifique que el grupo principal del usuario que figura mapr.daemon.useren el /opt/mapr/conf/daemon.confarchivo sea mapr.daemon.group. 
 Reinicia Warden después de cualquier cambio en daemon.conf.
