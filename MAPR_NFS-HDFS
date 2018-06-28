@@ -1,3 +1,10 @@
+HUE-FileBrowser
+/opt/mapr/hue/hue-3.12.0/logs/error.log
+/opt/mapr/hue/hue-3.12.0/logs/access.log
+/opt/mapr/hue/hue-3.12.0/logs/runcpserver.log
+/opt/mapr/httpfs/httpfs-1.0/logs/httpfs-audit.log
+
+
 #Antes de comenzar: requisitos de configuración de NFS
 Asegúrese de que se cumplan las siguientes condiciones antes de utilizar la puerta de enlace MAPR NFS:
 
