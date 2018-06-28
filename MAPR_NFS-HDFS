@@ -1,1 +1,54 @@
+#Antes de comenzar: requisitos de configuración de NFS
+Asegúrese de que se cumplan las siguientes condiciones antes de utilizar la puerta de enlace MAPR NFS:
 
+#1.-El stock del servicio NFS de Linux no se debe ejecutar. Linux NFS y MapR NFS no se pueden ejecutar simultáneamente.
+  /etc/sysconfig/nfs
+                  NFS requiere el mapa de puertos, que asigna dinámicamente puertos para servicios RPC. 
+                  Esto causa problemas para configurar reglas de firewall. 
+                  Para solucionar este problema, use el /etc/sysconfig/nfsarchivo para controlar en qué puertos se ejecutan los servicios de RPC requeridos.
+
+                  Es /etc/sysconfig/nfsposible que no exista por defecto en todos los sistemas. 
+                  Si no existe, créelo y agregue las siguientes variables (alternativamente, si el archivo existe, elimine el comentario y cambie las entradas predeterminadas según sea necesario):
+
+                  ###MOUNTD_PORT="x"
+                  controlar qué puerto TCP y UDP mountd (rpc.mountd) usa. Reemplace xcon un número de puerto no utilizado.
+
+                  ###STATD_PORT="x"
+                  controlar qué estado de puerto TCP y UDP (rpc.statd) usa. Reemplace xcon un número de puerto no utilizado.
+
+                  ##LOCKD_TCPPORT="x"
+                  controlar qué puerto TCP nlockmgr (rpc.lockd) usa. Reemplace xcon un número de puerto no utilizado.
+
+                  ##LOCKD_UDPPORT="x"
+                  controlar qué puerto UDP nlockmgr (rpc.lockd) usa. Reemplace xcon un número de puerto no utilizado.
+
+                  ##Si NFS no puede iniciarse, verifique /var/log/messages. 
+                  ##Normalmente, NFS no podrá iniciarse si especifica un número de puerto que ya está en uso. 
+                  ##Después de editar, /etc/sysconfig/nfs reinicie el servicio NFS ejecutando el service nfs restartcomando. 
+                  Ejecute el ##rpcinfo -p comando para confirmar los cambios.
+
+                  Para configurar un firewall para permitir NFS:
+
+                  Permitir el puerto TCP y UDP 2049 para NFS.
+
+                  Permitir el puerto TCP y UDP 111 (portmap / sunrpc).
+
+                  Permitir el puerto TCP y UDP especificado con MOUNTD_PORT="x"
+
+                  Permitir el puerto TCP y UDP especificado con STATD_PORT="x"
+
+                  Permitir el puerto TCP especificado con LOCKD_TCPPORT="x"
+
+                  Permitir el puerto UDP especificado con LOCKD_UDPPORT="x"
+2.-El administrador de bloqueos (nlockmgr) debe estar deshabilitado.
+3.-En Red Hat y CentOS v6.0 y superior, el rpcbind servicio debe estar ejecutándose.
+Puedes usar el comando ps ax | grep rpcbindpara verificar.
+4.-En Red Hat y CentOS v5.xy versiones anteriores, y en Ubuntu y SUSE, el portmapperservicio debe estar ejecutándose. 
+Puedes usar el comando ps ax | grep portmappara verificar.
+5.-El mapr-nfspaquete debe estar presente e instalado. 
+Puede enumerar los contenidos en el /opt/mapr/rolesdirectorio para verificar nfsen la lista.
+6.-Asegúrese de haber aplicado una licencia Community Edition (M3) o una licencia Enterprise Edition (M5) (paga o de prueba) al clúster. 
+Ver Agregar una licencia .
+7.-Asegúrese de que el servicio MapR NFS esté iniciado. Consulte Gestión de funciones y servicios .
+8.-Verifique que el grupo principal del usuario que figura mapr.daemon.useren el /opt/mapr/conf/daemon.confarchivo sea mapr.daemon.group. 
+Reinicia Warden después de cualquier cambio en daemon.conf.
