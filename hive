@@ -1,1 +1,11 @@
+
+STEP 1:- Download the HIVE
 http://www-us.apache.org/dist/hive/hive-2.3.3/
+
+STEP2:- Untar the hive tar file:-
+
+sudo tar -xzvf apache-hive-2.1.1-bin.tar.gz
+
+STEP 3:- Give a soft link to the extracted file.
+
+sudo ln -s apache-hive-2.1.1-bin/ hive
