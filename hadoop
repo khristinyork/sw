@@ -1,5 +1,7 @@
 ### PASOS a seguir:
  
+https://archive.apache.org/dist/hadoop/core/hadoop-2.7.3/
+
 STEP 1: Install Java
 
 Since Ubuntu no longer come with Java, the first thing we have to do is install it. For the sake of simplicity, I will not go through this step by step. The post HOW TO INSTALL ORACLE JAVA 7 UPDATE 25 ON UBUNTU 13.04 LINUX has already done it so brilliantly.
