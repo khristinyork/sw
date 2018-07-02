@@ -1,4 +1,6 @@
 QUITAR PRIMERA COLUMNA Y REEMPLAZAR , POR ;
+ find / -name *.log -exec grep -il "application_1530276948381_0008" {} \; 2>/dev/null
+
  find / -name *.log -exec grep -il filebrowser {} \;
  find . -type f  -mmin -20  -exec grep trato {} \;
 cat /home/cristina/part-m-00000 |awk '{print $1 $2 $3}' | sed 's/\,/\;/g' > excel.csv
