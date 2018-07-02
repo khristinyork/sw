@@ -177,7 +177,7 @@ By default, Hadoop will place DFS data node blocks in file://${hadoop.tmp.dir}/d
 It’s a little bit of work, but you’re going to have to do it anyway. So we can just create them now
 	
 $ sudo mkdir /home/hadoop/hdfs
-$ sudo chown -R hadoop:hadoop  /home/hadoop/hdfs
+$ sudo chown -R hadoop:hadoopgroup  /home/hadoop/hdfs
 $ sudo chmod 750 /home/hadoop/hdfs
 
 Open hdfs-site.xml for editing	
