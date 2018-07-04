@@ -1,0 +1,30 @@
+1. Instalar y configurar las dependencias necesarias
+sudo apt-get update
+
+sudo apt-get install -y curl openssh-server ca-certificates
+A continuación, instale Postfix para enviar correos electrónicos de notificación. Si desea utilizar otra solución para enviar correos electrónicos, omita este paso y configure un servidor SMTP externo después de haber instalado GitLab.
+
+sudo apt-get install -y postfix
+Durante la instalación de Postfix, puede aparecer una pantalla de configuración. Seleccione 'Sitio de Internet' y presione enter. Use el DNS externo de su servidor para 'nombre de correo' y presione enter. Si aparecen pantallas adicionales, continúe presionando Enter para aceptar los valores predeterminados.
+
+2. Agregue el repositorio de paquetes de GitLab e instale el paquete
+Agregue el repositorio de paquetes de GitLab.
+
+curl https://packages.gitlab.com/install/repositories/gitlab/gitlab-ee/script.deb.sh | sudo bash
+Luego, instale el paquete GitLab. Cambie `http: // gitlab.example.com` a la URL a la que desea acceder a su instancia de GitLab. La instalación se configurará automáticamente e iniciará GitLab en esa URL. HTTPS requiere configuración adicional después de la instalación.
+
+sudo EXTERNAL_URL = "http://gitlab.example.com" apt-get install gitlab-ee
+3. Busque el nombre de host y el inicio de sesión
+En su primera visita, será redirigido a una pantalla de restablecimiento de contraseña. Proporcione la contraseña para la cuenta de administrador inicial y se le redirigirá a la pantalla de inicio de sesión. Use el nombre de usuario de la cuenta predeterminada rootpara iniciar sesión.
+
+Consulte nuestra documentación para obtener instrucciones detalladas sobre instalación y configuración .
+
+4. Configure sus preferencias de comunicación
+Visite nuestro centro de preferencias de suscripción por correo electrónico para informarnos cuándo comunicarnos con usted. Tenemos una política explícita de aceptación por correo electrónico para que tenga un control total sobre qué y con qué frecuencia le enviamos correos electrónicos.
+
+Dos veces al mes, enviamos las noticias de GitLab que necesita saber, incluidas nuevas funciones, integraciones, documentos y historias detrás de escena de nuestros equipos de desarrollo. Para actualizaciones de seguridad críticas relacionadas con errores y rendimiento del sistema, suscríbase a nuestro boletín de seguridad dedicado.
+
+NOTA IMPORTANTE: Si no acepta el boletín informativo de seguridad, no recibirá alertas de seguridad.
+
+Solución de problemas=> https://docs.gitlab.com/omnibus/
+Manual deinstalcion > http://docs.gitlab.com/omnibus/manual_install.html
