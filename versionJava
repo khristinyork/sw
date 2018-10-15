@@ -1,5 +1,116 @@
 Introducción
 
+Otra forma.
+********************
+beg1
+ http://www.oracle.com/technetwork/java/javase/downloads/java-archive-downloads-javase7-521261.html
+
+Guardamos el fichero en una zona temporal, como por ejemplo, nuestro home, y la movemos a la carpeta /var/cache/oracle-jdk7-installer/ (si no existe, deberéis crearla). A demás, si existe y contiene algún fichero antiguo de instalación, es recomendable eliminarlo antes…
+
+
+$ sudo mkdir /var/cache/oracle-jdk7-installer/
+$ sudo mv /home/jordi/jdk-7u80-linux-x64.tar.gz /var/cache/oracle-jdk7-installer/
+1
+2
+$ sudo mkdir /var/cache/oracle-jdk7-installer/
+$ sudo mv /home/jordi/jdk-7u80-linux-x64.tar.gz /var/cache/oracle-jdk7-installer/
+Ahora ya tenemos el paquete listo para instalar de manera normal. Comentar que este procedimiento que hemos realizado es el mismo que apt install hace previamente a la instalación. Así que lo que estamos haciendo es bajarnos nosotros mismos el paquete tal cuál pasaría durante la fase de pre-instalación con apt…
+
+Ahora, sólo nos queda instalarlo…
+
+
+$ sudo apt-get install oracle-java7-installer
+1
+$ sudo apt-get install oracle-java7-installer
+Y una vez instalado, podemos proceder a comprobar que realmente es seleccionable como defecto (yo ya disponía de la 8 en mi sistema):
+
+
+$ sudo update-alternatives --config java
+Existen 2 opciones para la alternativa java (que provee /usr/bin/java).
+
+  Selección   Ruta                                     Prioridad  Estado
+------------------------------------------------------------
+  0            /usr/lib/jvm/java-7-oracle/jre/bin/java   1082      modo automático
+  1            /usr/lib/jvm/java-7-oracle/jre/bin/java   1082      modo manual
+* 2            /usr/lib/jvm/java-8-oracle/jre/bin/java   1081      modo manual
+
+Press <enter> to keep the current choice[*], or type selection number: 0
+update-alternatives: utilizando /usr/lib/jvm/java-7-oracle/jre/bin/java para proveer /usr/bin/java (java) en modo automático
+
+jmarques@PR170:~$ java -version
+java version "1.7.0_80"
+Java(TM) SE Runtime Environment (build 1.7.0_80-b15)
+Java HotSpot(TM) 64-Bit Server VM (build 24.80-b11, mixed mode)
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+$ sudo update-alternatives --config java
+Existen 2 opciones para la alternativa java (que provee /usr/bin/java).
+ 
+  Selección   Ruta                                     Prioridad  Estado
+------------------------------------------------------------
+  0            /usr/lib/jvm/java-7-oracle/jre/bin/java   1082      modo automático
+  1            /usr/lib/jvm/java-7-oracle/jre/bin/java   1082      modo manual
+* 2            /usr/lib/jvm/java-8-oracle/jre/bin/java   1081      modo manual
+ 
+Press <enter> to keep the current choice[*], or type selection number: 0
+update-alternatives: utilizando /usr/lib/jvm/java-7-oracle/jre/bin/java para proveer /usr/bin/java (java) en modo automático
+ 
+jmarques@PR170:~$ java -version
+java version "1.7.0_80"
+Java(TM) SE Runtime Environment (build 1.7.0_80-b15)
+Java HotSpot(TM) 64-Bit Server VM (build 24.80-b11, mixed mode)
+Como veis, he seleccionado la versión 7 del JDK (opción 0) y a demás, una vez finalizado, hemos validado que realmente se han realizado los cambios correctamente, solicitando la versión al sistema.
+
+Con esto, ya tenemos la versión 1.7 de la JDK de Oracle instalada normalmente en nuestro Ubuntu. Podréis hacer lo mismo con otras versiones, o incluso paquetes que necesitéis…
+
+Por cierto, no debéis olvidar actualizar el JAVA_HOME:
+
+
+$ echo $JAVA_HOME
+/usr/lib/jvm/java-8-oracle
+
+$ sudo vi /etc/environment
+> JAVA_HOME=/usr/lib/jvm/java-7-oracle
+
+$ source /etc/environment
+$ echo $JAVA_HOME
+/usr/lib/jvm/java-7-oracle
+1
+2
+3
+4
+5
+6
+7
+8
+9
+$ echo $JAVA_HOME
+/usr/lib/jvm/java-8-oracle
+ 
+$ sudo vi /etc/environment
+> JAVA_HOME=/usr/lib/jvm/java-7-oracle
+ 
+$ source /etc/environment
+$ echo $JAVA_HOME
+/usr/lib/jvm/java-7-oracle
+
+end
+
+
 Java y la JVM (Máquina Virtual de Java) son ampliamente utilizados y requeridos para muchos tipos de software. Este artículo lo guiará en el proceso de instalación y gestión de diferentes versiones de Java utilizando apt-get.
 Requisitos Previos
 
